@@ -3,7 +3,7 @@ import React from "react";
 
 const EventCard = ({ title, date, time, location, description }) => {
   return (
-    <div className="text-white max-w-sm mx-auto bg-black backdrop-blur-lg rounded-2xl border border-[#00F9FF]/50 shadow-lg hover:shadow-[0_0_12px_#00F9FF] transition transform  p-6 ">
+    <div className="text-white max-w-sm mx-auto bg-black/30 backdrop-blur-lg rounded-2xl border border-white/10 shadow-lg hover:border-[#00F9FF] transition transform p-6">
       
       
       <h2 className="text-2xl font-bold mb-4 text-[#00F9FF] ">

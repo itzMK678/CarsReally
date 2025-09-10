@@ -3,6 +3,8 @@ import './App.css'
 import Navbar from './components/Navbar'
 import HeroSection from './pages/HeroSection'
 import About from './components/About'
+import Footer from './components/Footer'
+import BookEvent from './pages/BookEvent'
 
 function App() {
 
@@ -12,6 +14,8 @@ function App() {
     <Navbar />
     <HeroSection />
     <About />
+    <BookEvent/>
+   <Footer/>
     </>
   )
 }

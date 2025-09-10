@@ -31,7 +31,7 @@ const HeroSection = () => {
           href="#create"
           className="mt-6 px-6 py-3 bg-[#00F9FF] border-white text-black font-semibold rounded-[8px]  transition drop-shadow-[0_0_12px_#00F9FF] hover:bg-white hover:text-[#00F9FF]"
         >
-          Discover About Events
+         Learn What's new
         </a>
       </div>
     </section>
