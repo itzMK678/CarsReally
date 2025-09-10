@@ -1,182 +1,164 @@
 import React from "react";
-
+import { UserCircle , Info ,MapPin } from "lucide-react";
 const BookEvent = () => {
   return (
-    <div className="text-gray-200 py-8">
-      <div className="max-w-4xl mx-auto px-4">
-        {/* Header */}
+    <div className="bg-black py-10">
+      <div className="max-w-6xl mx-auto px-4">
+        
         <header className="text-center mb-10">
-          <h1 className="racing-font text-4xl md:text-5xl text-yellow-500 mb-3">
+          <h1 className="racing-font text-4xl md:text-5xl text-[#00f9ff] mb-3">
             RALLY EVENT REGISTRATION
           </h1>
           <p className="text-xl text-gray-400">
             Register your rally racing event with our easy form
           </p>
-          <div className="w-32 h-1 bg-yellow-500 mx-auto mt-4"></div>
+          <div className="w-32 h-1 bg-[#00f9ff] mx-auto mt-4"></div>
         </header>
 
-        {/* Progress Bar */}
-        <div className="mb-12 bg-gray-800 rounded-full h-2.5 mx-4">
-          <div className="bg-yellow-500 h-2.5 rounded-full w-1/3"></div>
-        </div>
+        {/* Form */}
+        <form className="max-w-[1200px] bg-black rounded-2xl border border-white/10 overflow-hidden ">
 
-        {/* Form Container */}
-        <form className="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
-          {/* Section 1: Organizer Information */}
-          <div className="form-section p-6 md:p-8 border-b border-gray-700">
-            <h2 className="text-2xl md:text-3xl racing-font text-yellow-500 mb-6 flex items-center">
-              <i className="fas fa-user-circle mr-3"></i> Organizer Information
+
+          
+          <div className=" m-7 my-10 rounded-[8px] p-6 md:p-8 border hover:border-[#00f9ff] border-white/10">
+            <h2 className="justify-center text-2xl md:text-3xl racing-font text-[#00f9ff] mb-6 flex items-center">
+              <UserCircle size={35} className="mt-1 text-[#00f9ff] mr-3" /> Organizer Information
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-center text-gray-400 mb-6">
               Contact details for event participants and inquiries.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
-                <label className="block text-gray-400 mb-2">
-                  Organizer Name *
-                </label>
+                <p className="text-gray-400 mb-2">Organizer Name *</p>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="Your name or organization"
+                  className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                   required
                 />
-                <p className="text-sm text-gray-500 mt-1">
-                  Your name or organization
-                </p>
               </div>
 
               <div>
-                <label className="block text-gray-400 mb-2">
-                  Contact Phone (Optional)
-                </label>
+                <p className="text-gray-400 mb-2">Contact Phone</p>
                 <input
                   type="tel"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="+1 (555) 123-4567"
+                  className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-400 mb-2">
-                  Contact Email *
-                </label>
+                <p className="text-gray-400 mb-2">Contact Email *</p>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="contact@example.com"
+                  className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                   required
                 />
               </div>
             </div>
           </div>
 
-          {/* Section 2: Basic Information */}
-          <div className="form-section p-6 md:p-8 border-b border-gray-700">
-            <h2 className="text-2xl md:text-3xl racing-font text-yellow-500 mb-6 flex items-center">
-              <i className="fas fa-info-circle mr-3"></i> Basic Information
+          {/* Section 2: Basic Info */}
+          <div className="p-6 md:p-8  m-7 my-10 rounded-[8px] border hover:border-[#00f9ff] border-white/10">
+            <h2 className="justify-center text-2xl md:text-3xl racing-font text-[#00f9ff] mb-6 flex items-center">
+              < Info  size={35} className="mt-1 text-[#00f9ff] mr-3" />  Basic Information
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-center text-gray-400 mb-6">
               Provide the essential details about your rally event.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
-                <label className="block text-gray-400 mb-2">Event Name *</label>
+                <p className="text-gray-400 mb-2">Event Name *</p>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="e.g., Mountain Thunder Rally"
+                  className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-gray-400 mb-2">Description *</label>
+                <p className="text-gray-400 mb-2">Description *</p>
                 <textarea
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 h-32"
                   placeholder="Describe your rally event, terrain, challenges, and what participants can expect..."
+                  className="w-full px-4 py-2 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                   required
                 ></textarea>
               </div>
 
               <div>
-                <label className="block text-gray-400 mb-2">Event Type *</label>
-                <select className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
-                  <option>Select event type</option>
-                  <option>Stage Rally</option>
-                  <option>Rallycross</option>
-                  <option>Road Rally</option>
-                  <option>Time-Speed-Distance Rally</option>
-                  <option>Hill Climb</option>
+                <p className="text-gray-400 mb-2">Event Type *</p>
+                <select className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]">
+                  <option className="bg-black text-gray-400">Select event type</option>
+                  <option className="bg-black">Stage Rally</option>
+                  <option className="bg-black">Rallycross</option>
+                  <option className="bg-black">Road Rally</option>
+                  <option className="bg-black">Time-Speed-Distance Rally</option>
+                  <option className="bg-black">Hill Climb</option>
                 </select>
               </div>
             </div>
           </div>
 
           {/* Section 3: Date, Time & Location */}
-          <div className="form-section p-6 md:p-8">
-            <h2 className="text-2xl md:text-3xl racing-font text-yellow-500 mb-6 flex items-center">
-              <i className="fas fa-map-marker-alt mr-3"></i> Date, Time & Location
+          <div className="p-6 md:p-8  m-7 my-10 rounded-[8px] border hover:border-[#00f9ff] border-white/10">
+            <h2 className="justify-center text-2xl md:text-3xl racing-font text-[#00f9ff] mb-6 flex items-center">
+              <MapPin size={35} className="mt-1 text-[#00f9ff] mr-3" />  Date, Time & Location
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-center text-gray-400 mb-6">
               When and where will your rally event take place?
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
-                <label className="block text-gray-400 mb-2">Event Date *</label>
+                <p className="text-gray-400 mb-2">Event Date *</p>
                 <input
                   type="date"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                   required
                 />
-                <p className="text-sm text-gray-500 mt-1">mm/dd/yyyy</p>
               </div>
 
               <div>
-                <label className="block text-gray-400 mb-2">Location *</label>
+                <p className="text-gray-400 mb-2">Location *</p>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="e.g., Rocky Mountains, Colorado"
+                  className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-gray-400 mb-2">Start Time *</label>
+                <p className="text-gray-400 mb-2">Start Time *</p>
                 <input
                   type="time"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                   required
                 />
               </div>
             </div>
           </div>
 
-          {/* Form Actions */}
-          <div className="p-6 md:p-8 bg-gray-800 flex justify-between">
+          {/* Actions */}
+          <div className="p-6 md:p-8 bg-[#0a0a0a] flex justify-between">
             <button
               type="button"
-              className="px-6 py-3 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition"
+              className="px-6 py-3 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition"
             >
               <i className="fas fa-arrow-left mr-2"></i> Back
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-yellow-600 text-gray-900 font-bold rounded-lg hover:bg-yellow-500 transition"
+              className="px-6 py-3 cursor-pointer bg-[#00f9ff] text-black font-bold rounded-lg hover:bg-blue-500 transition"
             >
               Submit Registration <i className="fas fa-arrow-right ml-2"></i>
             </button>
           </div>
         </form>
-
-        {/* Footer */}
-        <footer className="text-center mt-12 text-gray-500">
-          <p>© 2023 RallyEvent Organizer. All rights reserved.</p>
-        </footer>
       </div>
     </div>
   );
