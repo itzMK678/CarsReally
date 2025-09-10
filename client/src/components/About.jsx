@@ -135,7 +135,7 @@ const About = () => {
     </p>
   </div>
 
-  {/* Card 3 */}
+  {/* Card 3                                                                                                                                                                                                                                                                     */}
   <div className="relative rounded-2xl p-8 border border-[#00F9FF]/40  ">
     <div className="absolute inset-0 rounded-2xl " />
 
