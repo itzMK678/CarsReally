@@ -3,17 +3,18 @@ import React from "react";
 
 const UpcomingEvents = ({ image, title, year, day, month, time, location, description }) => {
   return (
-    <div className="mt-20 flex flex-col sm:flex-row bg-black/30 backdrop-blur-lg rounded-2xl border border-white/10 shadow-lg hover:border-[#00F9FF] transition transform  max-w-4xl mx-auto">
+    <div className="mt-20 flex flex-col sm:flex-row bg-black/30 backdrop-blur-lg rounded-2xl border border-white/10 shadow-lg hover:border-[#00F9FF] transition transform max-w-4xl mx-auto ">
       
-      
-      <div className="relative w-full sm:w-1/3">
-        <img src={image} alt={title} className="h-48 rounded-l-2xl sm:h-60 w-full object-cover" />
-        
-        {/* Date & Month at Bottom */}
-        
-          <p className="absolute z-10 -top-18 right-35 text-[220px] font-bold text-[#00F9FF]">{day}</p>
-          <p className="absolute z-10 bottom-2 -left-25 text-[40px] font-bold text-[#00F9FF] uppercase">{month}</p>
-        
+      {/* Left Image Section as Background */}
+      <div
+        className="relative w-full sm:w-1/3 h-60 sm:h-auto rounded-l-2xl bg-cover bg-center"
+        style={{ backgroundImage: `url(${image})` }}
+      >
+        {/* Date & Month Overlay */}
+        <div className=" text-white text-center leading-tight">
+          <p className="absolute bottom-4 right-45 text-[200px] font-bold text-[#00F9FF]">{day}</p>
+          <p className="absolute bottom-2 right-41 text-[45px] font-bold text-[#00F9FF] uppercase">{month}</p>
+        </div>
       </div>
 
       {/* Right Content Section */}
@@ -27,7 +28,7 @@ const UpcomingEvents = ({ image, title, year, day, month, time, location, descri
             <svg className="w-4 h-4 text-[#00F9FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <p>{time} • {year}</p>
+            <p>{time} • {month} {day} , {year}</p>
           </div>
 
           {/* Location */}
