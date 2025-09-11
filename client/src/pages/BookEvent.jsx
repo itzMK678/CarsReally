@@ -2,8 +2,8 @@ import React from "react";
 import { UserCircle , Info ,MapPin } from "lucide-react";
 const BookEvent = () => {
   return (
-    <div className="bg-black py-10">
-      <div className="max-w-6xl mx-auto px-4">
+    <div className=" bg-gradient-to-r from-black to-blue-950  ">
+      <div className="max-w-6xl py-10 pt-30 mx-auto px-4">
         
         <header className="text-center mb-10">
           <h1 className="racing-font text-4xl md:text-5xl text-[#00f9ff] mb-3">
@@ -16,11 +16,11 @@ const BookEvent = () => {
         </header>
 
         {/* Form */}
-        <form className="max-w-[1200px] bg-black rounded-2xl border border-white/10 overflow-hidden ">
+        <form className="max-w-[1200px] bg- rounded-2xl border border-white/30 overflow-hidden ">
 
 
           
-          <div className=" m-7 my-10 rounded-[8px] p-6 md:p-8 border hover:border-[#00f9ff] border-white/10">
+          <div className=" m-7 my-10 rounded-[8px] p-6 md:p-8 border hover:border-[#00f9ff] border-white/20">
             <h2 className="justify-center text-2xl md:text-3xl racing-font text-[#00f9ff] mb-6 flex items-center">
               <UserCircle size={35} className="mt-1 text-[#00f9ff] mr-3" /> Organizer Information
             </h2>
@@ -61,7 +61,7 @@ const BookEvent = () => {
           </div>
 
           {/* Section 2: Basic Info */}
-          <div className="p-6 md:p-8  m-7 my-10 rounded-[8px] border hover:border-[#00f9ff] border-white/10">
+          <div className="p-6 md:p-8  m-7 my-10 rounded-[8px] border hover:border-[#00f9ff] border-white/20">
             <h2 className="justify-center text-2xl md:text-3xl racing-font text-[#00f9ff] mb-6 flex items-center">
               < Info  size={35} className="mt-1 text-[#00f9ff] mr-3" />  Basic Information
             </h2>
@@ -104,7 +104,7 @@ const BookEvent = () => {
           </div>
 
           {/* Section 3: Date, Time & Location */}
-          <div className="p-6 md:p-8  m-7 my-10 rounded-[8px] border hover:border-[#00f9ff] border-white/10">
+          <div className="p-6 md:p-8  m-7 my-10 rounded-[8px] border hover:border-[#00f9ff] border-white/20">
             <h2 className="justify-center text-2xl md:text-3xl racing-font text-[#00f9ff] mb-6 flex items-center">
               <MapPin size={35} className="mt-1 text-[#00f9ff] mr-3" />  Date, Time & Location
             </h2>
@@ -144,7 +144,7 @@ const BookEvent = () => {
           </div>
 
           {/* Actions */}
-          <div className="p-6 md:p-8 bg-[#0a0a0a] flex justify-between">
+          <div className="p-6 md:p-8  flex justify-between">
             <button
               type="button"
               className="px-6 py-3 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition"

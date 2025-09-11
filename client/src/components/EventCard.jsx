@@ -1,7 +1,7 @@
 // src/components/EventCard.jsx
 import React from "react";
 
-const EventCard = ({ title, date, time, location, description }) => {
+const EventCard = ({ title,year, day,month, time, location, description }) => {
   return (
     <div className="text-white max-w-sm mx-auto bg-black/30 backdrop-blur-lg rounded-2xl border border-white/10 shadow-lg hover:border-[#00F9FF] transition transform p-6">
       
@@ -15,7 +15,7 @@ const EventCard = ({ title, date, time, location, description }) => {
         <svg className="w-4 h-4 text-[#00F9FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
-        <p>{date} • {time}</p>
+        <p>{month} {day} ,{year} • {time}</p>
       </div>
 
       {/* Location */}

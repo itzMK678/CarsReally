@@ -1,0 +1,21 @@
+
+
+
+@import "tailwindcss";
+
+/* Your custom animation */
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Make a utility class outside of @layer */
+.animate-slide {
+  animation: slide 20s linear infinite;
+  display: flex;
+  width: max-content;
+}
