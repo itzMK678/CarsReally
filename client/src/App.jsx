@@ -21,10 +21,10 @@ function App() {
   }, []);
   return (
     <>
-      {/* ✅ Navbar should be outside Routes so it shows on all pages */}
+      
       <Navbar />
 
-      {/* ✅ Routes only contain Route components */}
+      
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/services" element={<Services />} />

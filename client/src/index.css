@@ -1,7 +1,7 @@
 
 
-
 @import "tailwindcss";
+
 
 /* Your custom animation */
 @keyframes slide {
@@ -29,3 +29,30 @@
 }
 .text-stroke2 {
   -webkit-text-stroke: 1px white;}
+
+ /* Calendar */
+/* Thin grid lines */
+.fc .fc-daygrid-day {
+  height: 230px;
+  width: 150px;
+  border: 0.5px solid rgba(255, 255, 255, 0.3); /* thin semi-transparent lines */
+}
+
+/* Make the day name (header) row transparent */
+.fc .fc-col-header {
+  background: transparent !important; /* removes default background */
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: #00F9FF; /* text color */
+  font-weight: bold;
+  font-size: 1rem;
+  margin-left: 0; /* adjust if needed */
+}
+
+
+
+/* Remove vertical lines between columns if needed */
+.fc .fc-daygrid-day-frame {
+  border: none;
+}

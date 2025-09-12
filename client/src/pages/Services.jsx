@@ -5,9 +5,9 @@ import Stats from "../components/home/Stats"
 const Services = () => {
   const withoutPremium = [
     "Register your events easily",
-    "Our company poster will be displayed on your event page",
-    "We will help you organize your event",
-    "Your event will be advertised on our website",
+    "Your Event name will be displayed on your event page",
+    "We will Guide you organize your event",
+    "Your event will be Shown on our website",
   ];
 
   const withPremium = [
