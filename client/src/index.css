@@ -19,3 +19,13 @@
   display: flex;
   width: max-content;
 }
+.animate-slide:hover {
+  animation-play-state: paused;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px #00F9FF; /* Stroke color + thickness */
+  
+}
+.text-stroke2 {
+  -webkit-text-stroke: 1px white;}

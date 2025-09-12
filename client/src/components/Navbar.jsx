@@ -14,31 +14,35 @@ const Navbar = () => {
 
         {/* Center - Menu Options */}
         <div className="w-1/3 flex justify-center space-x-10 ">
-          <a
-            href="/"
-            className=" text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
-          >
-           Home
-          </a>
-          <a
-            href="#past"
-            className=" text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
-          >
-           Events
-          </a>
-          <a
-            href="#today"
-            className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#00F9FF] transition"
-          >
-           Service
-          </a>
-          <a
-            href="#upcoming"
-            className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#FF007F] transition"
-          >
-            Contact
-          </a>
-          
+
+
+<Link
+  to="/"
+  className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
+>
+  Home
+</Link>
+
+<Link
+  to="/event"
+  className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
+>
+  Events
+</Link>
+
+<Link
+  to="/services"
+  className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#00F9FF] transition"
+>
+  Service
+</Link>
+
+<Link
+  to="/contact"
+  className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#FF007F] transition"
+>
+  Contact
+</Link>
         </div>
 
         {/* Right - Button */}

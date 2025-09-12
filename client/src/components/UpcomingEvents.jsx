@@ -11,10 +11,11 @@ const UpcomingEvents = ({ image, title, year, day, month, time, location, descri
         style={{ backgroundImage: `url(${image})` }}
       >
         {/* Date & Month Overlay */}
-        <div className=" text-white text-center leading-tight">
-          <p className="absolute bottom-4 right-45 text-[200px] font-bold text-[#00F9FF]">{day}</p>
-          <p className="absolute bottom-2 right-41 text-[45px] font-bold text-[#00F9FF] uppercase">{month}</p>
-        </div>
+      <div className="border-white flex absolute -top-8 left-4 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-lg text-center">
+  <p className="text-5xl font-bold text-[#00F9FF] text-stroke2">{day}</p>
+  <p className="text-md mt-4 ml-1 uppercase font-bold text-[#00F9FF] ">{month}</p>
+</div>
+
       </div>
 
       {/* Right Content Section */}

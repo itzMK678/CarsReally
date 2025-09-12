@@ -51,11 +51,13 @@ const Homepage = () => {
 
       <BestEvents />
       <div
-        className="w-[screen] h-[250px]  bg-cover bg-center flex items-center justify-center relative"
+        className="w-[screen] h-[200px]  bg-cover bg-center flex items-center justify-center relative"
         style={{ backgroundImage: `url(${ad})` }}
       >
  </div>
+
   <div className="py-20 bg-gradient-to-r from-black to-blue-950">
+     <p className="text-center text-5xl font-bold text-white mb-4  ">Our <span className="text-[#00d3f3]">Up-coming</span> Events</p>
         {events.map((event, index) => (
           <UpcomingEvents  key={index} {...event}/>
         ))}

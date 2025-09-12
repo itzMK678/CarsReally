@@ -52,7 +52,7 @@ const ContactBox = () => {
   };
 
   return (
-    <section className="bg-black py-16 px-4">
+    <section className="bg-transparent py-16 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-6xl font-bold text-[#00F9FF] drop-shadow-[0_0_15px_#00F9FF]">
@@ -133,7 +133,7 @@ const ContactBox = () => {
           </div>
 
           {/* Contact Info Boxes */}
-          <div className="space-y-6">
+          <div className="space-y-6 flex flex-col justify-center">
             {/* Email Box */}
             <div className="cursor-pointer flex items-center space-x-4 backdrop-blur-lg border bg-[#00F9FF]/10 border-[#00F9FF]/30 rounded-lg p-4 text-white hover:shadow-[0_0_15px_#00F9FF] transition">
               <Mail className="text-[#00F9FF]" />
