@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import BookEvent from "./pages/BookEvent";
 import Homepage from "./pages/Homepage";
 import AOS from "aos";
+import "./i18n";
 import "aos/dist/aos.css";
 import Contact from "./pages/Contact";
 import Events from "./pages/Events";

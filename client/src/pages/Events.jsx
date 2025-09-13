@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ClientCalendar from "../components/event/ClientCalendar";
 import EventsImage from "../assets/Calender.jpeg";
 import AllEvents from "../components/event/AllEvents";
+import Detail from "../components/Detail"
 
 const Events = () => {
   const [activeTab, setActiveTab] = useState("ClientCalendar"); // default tab
@@ -60,7 +61,7 @@ const Events = () => {
             </button>
           </div>
         </div>
-
+<Detail/>
         {/* Render Tab Content */}
         <div className="p-6">{content}</div>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import Participate from "./event/Participate";
 
 const EventPage = () => {
   // Example event data (replace with real props or state)
@@ -105,6 +106,7 @@ const EventPage = () => {
                   rules.
                 </p>
               </div>
+              <Participate/>
             </div>
 
             <div className="mt-6 text-xs text-gray-500">

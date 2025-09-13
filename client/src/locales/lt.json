@@ -1,0 +1,55 @@
+{
+ 
+    "welcome": "Sveiki atvykę",
+    "learn_more": "Sužinoti daugiau",
+    "submit": "Pateikti",
+    "cancel": "Atšaukti",
+    "back": "Atgal",
+    "loading": "Kraunama...",
+  "Ignite_the_Streets":"Uždekite Gatves",
+  "Discover_the_best_Automotive_Events_in_Area":"Atraskite geriausius automobilių renginius savo regione",
+   "learn_what_new": "Sužinokite, kas naujo",
+    "logo": "CarsReally",
+    "home": "Pagrindinis",
+    "events": "Renginiai",
+    "service": "Paslaugos",
+    "contact": "Kontaktai",
+    "book_event": "Užsisakykite renginį",
+    "privacy_policy": "Privatumo politika",
+    "cookies_policy": "Slapukų politika",
+    "faqs": "DUK",
+    "rights": "Visos teisės saugomos",
+
+    "headline": "Jūsų automobilių renginių platforma",
+    "partners": "Mūsų partneriai",
+    "upcoming": "Artėjantys renginiai",
+    "about": "Apie renginį",
+    "type": "Renginio tipas",
+    "location": "Vieta",
+    "date_time": "Data ir laikas",
+    "participation_fee": "Dalyvavimo mokestis",
+    "spots": "Vietos",
+    "limited": "Ribotas",
+    "participate": "Dalyvauti",
+    "agree_terms": "Paspaudę Dalyvauti sutinkate su renginio taisyklėmis ir saugumo reikalavimais.",
+   
+    "title": "Dalyvauti {{event}}",
+    "name": "Vardas",
+    "email": "El. paštas",
+    "gender": "Lytis",
+     
+      "male": "Vyras",
+      "female": "Moteris",
+      "other": "Kita",
+    
+    "age": "Amžius",
+    "proceed_payment": "Tęsti apmokėjimą",
+    "thank_you": "Ačiū, {{name}}! Jūsų dalyvavimas renginyje {{event}} užregistruotas."
+ 
+ 
+   , "address": "Adresas",
+    "phone": "Telefonas",
+   
+    "send_message": "Siųsti žinutę"
+  
+}
