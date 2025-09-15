@@ -10,6 +10,8 @@ import "./i18n";
 import "aos/dist/aos.css";
 import Contact from "./pages/Contact";
 import Events from "./pages/Events";
+import Details from "./components/Detail";
+import Dashboard from "./dashboard/Dashboard";
 ;
 
 function App() {
@@ -31,7 +33,9 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/booking" element={<BookEvent />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/event-details" element={<Details />} />
  <Route path="/event" element={<Events />} />
+ <Route path="/dashboard" element={<Dashboard/>}></Route>
       </Routes>
 
      

@@ -1,9 +1,10 @@
 
 import React from "react";
 import EventCard from "../EventCard";
-
+import { useTranslation } from "react-i18next";
 
 const BestEvents = () => {
+   const { t, i18n } = useTranslation();
   const events = [
   {
     title: "Night Drift Challenge", 
@@ -46,9 +47,9 @@ const BestEvents = () => {
        
  <section className="min-h-screen  py-16 px-6">
        <div className="text-center">
-        <h2 className="text-5xl font-bold text-white mb-4">Our Best Events</h2>
+        <h2 className="text-5xl font-bold text-white mb-4">{t("our_best_events")}</h2>
         <p className="text-lg text-gray-600  mx-auto mb-8">
-          Don't miss out on these exciting rally adventures. Register now and secure your spot!
+         {t("best_events_desc")}
         </p>
         
       </div>

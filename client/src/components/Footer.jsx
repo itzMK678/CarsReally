@@ -3,11 +3,11 @@ import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className=" bg-black text-white pt-10 border-t border-[#00F9FF]/40">
+    <footer className=" group bg-black text-white pt-10 border-t border-[#00F9FF]/40">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
         {/* Logo / Brand */}
         <div>
-          <h2 className="text-3xl font-bold text-[#00F9FF] drop-shadow-[0_0_10px_#00F9FF]">
+          <h2 className="text-3xl font-bold text-[#00F9FF] ">
             CarsReally
           </h2>
           <p className="text-white/70 mt-2">
@@ -71,9 +71,18 @@ const Footer = () => {
       </div>
 
       {/* Bottom Section */}
-      <div className="text-center mt-5 border-t border-[#00F9FF]/30 pt-2 text-white/60">
-        <p>© {new Date().getFullYear()} CarsReally. All rights reserved.</p>
-      </div>
+     <div className="text-center mt-5 border-t border-[#00F9FF]/30 pt-2 text-white/60 group">
+  <a href="https://mamoon-dev.vercel.app/" target="_blank" rel="noopener noreferrer">
+    <p className="block group-hover:hidden">
+      © {new Date().getFullYear()} CarsReally. All rights reserved.
+    </p>
+  <p className="hidden group-hover:block opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300 ease-in-out group-hover:text-[#00F9FF]">
+      Developed by Mamoon Khaliq
+    </p>
+  </a>
+</div>
+
+      
     </footer>
   );
 };

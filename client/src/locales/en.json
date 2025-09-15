@@ -5,6 +5,10 @@
     "submit": "Submit",
     "cancel": "Cancel",
     "back": "Back",
+    "trusted_by": "Trusted by leading brands and racers worldwide.",
+    "our_best_events": "Our Best Events",
+"best_events_desc": "Don't miss out on these exciting rally adventures. Register now and secure your spot!",
+
     "loading": "Loading..."
   , "Discover_the_best_Automotive_Events_in_Area":"Discover the best Automotive Events in Area",
   "Ignite_the_Streets":"Ignite the Streets",
@@ -23,9 +27,9 @@
   ,
  
     "headline": "Your Ultimate Car Event Platform",
-    "partners": "Our Partners"
+    "partners": "Partners"
   ,
-  
+  "our": "Our",
     "upcoming": "Upcoming Events",
     "about": "About the event",
     "type": "Event type",

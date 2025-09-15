@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { X } from "lucide-react";
 
-const Participate = () => {
+const Participate = ({ onClose }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,10 +18,20 @@ const Participate = () => {
     alert(
       `Thank you, ${formData.name}! Your participation has been recorded.`
     );
+    if (onClose) onClose(); // close after submit
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-950">
+    <div className="flex justify-center items-center min-h-[300px] min-w-[400px] relative">
+      {/* Close Button */}
+      <button
+        onClick={onClose}
+        className="absolute -top-4 p-2 bg-red-500 hover:bg-red-600 rounded-full shadow-lg transition"
+        aria-label="Close form"
+      >
+        <X size={24} />
+      </button>
+
       {/* Small Centered Card */}
       <div className="bg-gray-900 rounded-2xl p-6 shadow-xl w-full max-w-sm">
         <h2 className="text-xl font-bold text-white mb-4 text-center">

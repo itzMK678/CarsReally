@@ -1,27 +1,34 @@
-// src/components/EventCardHorizontal.jsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const UpcomingEvents = ({ image, title, year, day, month, time, location, description }) => {
+const navigate = useNavigate();
+
+const handleViewDetails = () => {
+  navigate("/event-details", {
+    state: { image, title, year, day, month, time, location, description },
+  });
+};
+
+
   return (
     <div className="mt-20 flex flex-col sm:flex-row bg-black/30 backdrop-blur-lg rounded-2xl border border-white/10 shadow-lg hover:border-[#00F9FF] transition transform max-w-4xl mx-auto ">
       
-      {/* Left Image Section as Background */}
+      {/* Left Image Section */}
       <div
         className="relative w-full sm:w-1/3 h-60 sm:h-auto rounded-l-2xl bg-cover bg-center"
         style={{ backgroundImage: `url(${image})` }}
       >
         {/* Date & Month Overlay */}
-      <div className="border-white flex absolute -top-8 left-4 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-lg text-center">
-  <p className="text-5xl font-bold text-[#00F9FF] text-stroke2">{day}</p>
-  <p className="text-md mt-4 ml-1 uppercase font-bold text-[#00F9FF] ">{month}</p>
-</div>
-
+        <div className="border-white flex absolute -top-8 left-4 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-lg text-center">
+          <p className="text-5xl font-bold text-[#00F9FF] text-stroke2">{day}</p>
+          <p className="text-md mt-4 ml-1 uppercase font-bold text-[#00F9FF]">{month}</p>
+        </div>
       </div>
 
       {/* Right Content Section */}
       <div className="flex flex-col justify-between p-4 sm:p-6 w-full sm:w-2/3">
         <div>
-          {/* Title */}
           <h2 className="text-2xl font-bold mb-2 text-[#00F9FF]">{title}</h2>
 
           {/* Time */}
@@ -29,7 +36,7 @@ const UpcomingEvents = ({ image, title, year, day, month, time, location, descri
             <svg className="w-4 h-4 text-[#00F9FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <p>{time} • {month} {day} , {year}</p>
+            <p>{time} • {month} {day}, {year}</p>
           </div>
 
           {/* Location */}
@@ -45,13 +52,15 @@ const UpcomingEvents = ({ image, title, year, day, month, time, location, descri
           <p className="text-gray-300 text-sm">{description}</p>
         </div>
 
-        {/* Button */}
-        <button className="mt-4 w-full py-2 bg-[#00F9FF] text-black font-semibold rounded-lg hover:bg-blue-400 transition">
-          View Details
-        </button>
+        {/* View Details Button */}
+       <button
+  onClick={handleViewDetails}
+  className="mt-4 w-full py-2 bg-[#00F9FF] text-black font-semibold rounded-lg hover:bg-blue-400 transition"
+>
+  View Details
+</button>
       </div>
     </div>
   );
 };
-
 export default UpcomingEvents;

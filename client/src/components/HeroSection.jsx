@@ -1,7 +1,7 @@
 // src/components/Hero.jsx
 import React from "react";
 import { useTranslation } from "react-i18next";
-import racingVideo from "../assets/Racing.mp4";
+import racingVideo from "../assets/Racing.mp4";                
 const HeroSection = () => {
     const { t, i18n } = useTranslation();
   return (
