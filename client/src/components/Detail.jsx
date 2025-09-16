@@ -18,16 +18,19 @@ const Details = () => {
     <main className="min-h-screen bg-gradient-to-r from-black to-blue-950 text-white py-10 px-6">
       <article className="max-w-6xl mx-auto bg-white/10 backdrop-blur-lg rounded-2xl shadow-lg overflow-hidden relative">
         {/* Event image */}
-        <div
-          className="relative h-72 mt-10 md:h-96 bg-cover bg-center"
-          style={{ backgroundImage: `url(${image})` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-            <h1 className="text-4xl md:text-5xl font-bold text-white px-6 pb-6">
-              {title}
-            </h1>
-          </div>
-        </div>
+        <div className="relative mt-10">
+  <img
+    src={image}
+    alt={title}
+    className="w-full object-contain max-h-[80vh] rounded-t-2xl"
+  />
+  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+    <h1 className="text-4xl md:text-5xl font-bold text-white px-6 pb-6">
+      {title}
+    </h1>
+  </div>
+</div>
+
 
         {/* Event Details */}
         <p className="p-6 pb-1">
