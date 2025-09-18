@@ -1,46 +1,44 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "./components/Navbar";
-import Services from "./pages/Services"
 import Footer from "./components/Footer";
-import BookEvent from "./pages/BookEvent";
 import Homepage from "./pages/Homepage";
-import AOS from "aos";
-import "./i18n";
-import "aos/dist/aos.css";
+import Services from "./pages/Services";
+import BookEvent from "./pages/BookEvent";
 import Contact from "./pages/Contact";
 import Events from "./pages/Events";
 import Details from "./components/Detail";
-import Dashboard from "./dashboard/Dashboard";
-;
+import Dashboard from "./admin/Dashboard";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import Login from "./auth/Login";
+import AOS from "aos";
+import "./i18n";
+import "aos/dist/aos.css";
+
+const Layout = ({ children }) => (
+  <>
+    <Navbar />
+    {children}
+    <Footer />
+  </>
+);
 
 function App() {
   useEffect(() => {
-     AOS.init({
-      duration: 800, // animation duration in ms
-      offset: 100,   // trigger offset
-      once: true,    // animation runs only once
-    });
+    AOS.init({ duration: 800, offset: 100, once: true });
   }, []);
+
   return (
-    <>
-      
-      <Navbar />
-
-      
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/booking" element={<BookEvent />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/event-details" element={<Details />} />
- <Route path="/event" element={<Events />} />
- <Route path="/dashboard" element={<Dashboard/>}></Route>
-      </Routes>
-
-     
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Layout><Homepage /></Layout>} />
+      <Route path="/services" element={<Layout><Services /></Layout>} />
+      <Route path="/booking" element={<Layout><BookEvent /></Layout>} />
+      <Route path="/contact" element={<Layout><Contact /></Layout>} />
+      <Route path="/event-details" element={<Layout><Details /></Layout>} />
+      <Route path="/event" element={<Layout><Events /></Layout>} />
+      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+    </Routes>
   );
 }
 
