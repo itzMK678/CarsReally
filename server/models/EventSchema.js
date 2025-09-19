@@ -7,6 +7,11 @@ const EventSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  imageUrl:{
+    type:String,
+    require:true,
+    trim:true,
+  },
   contactPhone: {
     type: String,
     trim: true,

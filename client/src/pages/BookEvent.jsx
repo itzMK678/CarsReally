@@ -9,14 +9,50 @@ const BookEvent = () => {
     eventName: "",
     description: "",
     eventType: "",
-    eventstartingDate: "", // lowercase, matches backend
+    eventstartingDate: "",
     eventendingDate: "",
     location: "",
     startTime: "",
+    imageUrl: "",
   });
+
+  const [uploading, setUploading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Upload image to ImgBB
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+9
+    const uploadData = new FormData();
+    uploadData.append("image", file);
+
+    try {
+      const res = await fetch(
+        `https://api.imgbb.com/1/upload?key=c40771f14511210bb07499244c2efe27`,
+        {
+          method: "POST",
+          body: uploadData,
+        }
+      );
+
+      const data = await res.json();
+      if (data.success) {
+        setFormData({ ...formData, imageUrl: data.data.url });
+      } else {
+        alert("Image upload failed!");
+      }
+    } catch (err) {
+      console.error("❌ Upload error:", err);
+      alert("Image upload failed!");
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -30,7 +66,6 @@ const BookEvent = () => {
         },
         body: JSON.stringify({
           ...formData,
-          // Convert date strings to Date objects
           eventstartingDate: new Date(formData.eventstartingDate),
           eventendingDate: new Date(formData.eventendingDate),
         }),
@@ -51,6 +86,7 @@ const BookEvent = () => {
         eventendingDate: "",
         location: "",
         startTime: "",
+        imageUrl: "",
       });
     } catch (err) {
       console.error("❌ Error:", err);
@@ -146,6 +182,28 @@ const BookEvent = () => {
                   className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
                   required
                 />
+              </div>
+
+              {/* Event Poster Upload */}
+              <div>
+                <p className="text-gray-400 mb-2">Event Poster *</p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg text-[#00f9ff] focus:outline-none focus:ring-2 focus:ring-[#00f9ff]"
+                  required
+                />
+                {uploading && (
+                  <p className="text-yellow-400 mt-2">Uploading image...</p>
+                )}
+                {formData.imageUrl && (
+                  <img
+                    src={formData.imageUrl}
+                    alt="Event Poster"
+                    className="mt-4 max-h-48 rounded-lg border border-[#00f9ff]"
+                  />
+                )}
               </div>
 
               <div>
