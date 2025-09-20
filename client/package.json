@@ -25,6 +25,7 @@
     "i18next": "^25.5.2",
     "lucide-react": "^0.543.0",
     "mongoose": "^8.18.1",
+    "node-mailjet": "^6.0.9",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-i18next": "^15.7.3",

@@ -12,43 +12,51 @@ const ContactBox = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
+  // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    setErrors((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name) newErrors.name = "Name is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email";
-    if (!formData.subject) newErrors.subject = "Subject is required";
-    if (!formData.message) newErrors.message = "Message is required";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  // Basic validation
+  const validate = () => {
+    let newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+    return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    setErrors({});
+
+    const newErrors = validate();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
-      alert("Form submitted successfully!");
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
+
+    try {
+      const response = await fetch("http://localhost:5000/sendMail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        alert("Failed to send message. Try again later.");
+      }
+    } catch (error) {
+      alert("Error: " + error.message);
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -134,33 +142,26 @@ const ContactBox = () => {
 
           {/* Contact Info Boxes */}
           <div className="space-y-6 flex flex-col justify-center">
-            {/* Email Box */}
             <div className="cursor-pointer flex items-center space-x-4 backdrop-blur-lg border bg-[#00F9FF]/10 border-[#00F9FF]/30 rounded-lg p-4 text-white hover:shadow-[0_0_15px_#00F9FF] transition">
               <Mail className="text-[#00F9FF]" />
               <div>
                 <p className="text-sm font-medium text-[#00F9FF]">Email</p>
-                <a
-                  href="mailto:flana@gmail.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="mailto:flana@gmail.com">
                   <p className="text-base">flana@gmail.com</p>
                 </a>
               </div>
             </div>
 
-            {/* Phone Box */}
             <div className="cursor-pointer flex items-center space-x-4 bg-[#00F9FF]/10 backdrop-blur-lg border border-[#00F9FF]/30 rounded-lg p-4 text-white hover:shadow-[0_0_15px_#00F9FF] transition">
               <Phone className="text-[#00F9FF]" />
               <div>
                 <p className="text-sm font-medium text-[#00F9FF]">Phone</p>
-                <a href="tel:+92 3088145270">
+                <a href="tel:+923088145270">
                   <p className="text-base">1234566</p>
                 </a>
               </div>
             </div>
 
-            {/* Address Box */}
             <div className="cursor-pointer flex items-center space-x-4 bg-[#00F9FF]/10 backdrop-blur-lg border border-[#00F9FF]/30 rounded-lg p-4 text-white hover:shadow-[0_0_15px_#00F9FF] transition">
               <MapPin className="text-[#00F9FF]" />
               <div>

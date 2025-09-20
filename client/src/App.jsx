@@ -7,8 +7,8 @@ import Services from "./pages/Services";
 import BookEvent from "./pages/BookEvent";
 import Contact from "./pages/Contact";
 import Events from "./pages/Events";
+import Dashboard from '../src/admin/Dashboard'
 import Details from "./components/Detail";
-import Dashboard from "./admin/Dashboard";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Login from "./auth/Login";
 import AOS from "aos";

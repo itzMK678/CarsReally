@@ -1,4 +1,9 @@
 const express = require ("express")
+const Mailjet= require( "node-mailjet");
+const mailjet = Mailjet.apiConnect(
+  "5e46231f2d632b61913d79ad6a9002c7",   // Put your Mailjet Public Key
+  "58d9356bd99bebfb25d989b82e462a6e"   // Put your Mailjet Secret Key
+);
 const cors = require ("cors")
 const Stripe = require("stripe");
 const path = require ("path")
@@ -86,6 +91,41 @@ app.post("/create-payment-intent", async (req, res) => {
   } catch (error) {
     console.error("❌ Stripe Error:", error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/sendMail", async (req, res) => {
+  const { name, email, subject, message } = req.body;
+
+  try {
+    const result = await mailjet
+      .post("send", { version: "v3.1" })
+      .request({
+        Messages: [
+          {
+            From: {
+              Email: "m.mamoon.khaliq@gmail.com", // company sender email
+              Name: "Company Support",
+            },
+            To: [
+              {
+                Email: "m.mamoon.khaliq@gmail.com", // company inbox
+                Name: "Company Inbox",
+              },
+            ],
+            Subject: subject,
+            TextPart: `From: ${name} (${email})\n\n${message}`,
+            HTMLPart: `<h3>New Message from ${name}</h3>
+                       <p><b>Email:</b> ${email}</p>
+                       <p><b>Message:</b> ${message}</p>`,
+          },
+        ],
+      });
+
+    res.status(200).json({ success: true, result: result.body });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 

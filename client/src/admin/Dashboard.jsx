@@ -1,62 +1,7 @@
 // src/pages/Dashboard.jsx
 import React, { useState } from "react";
 
-const Dashboard = () => {
-  const [activePage, setActivePage] = useState("password");
 
-  const renderContent = () => {
-    switch (activePage) {
-      case "password":
-        return <ChangePassword />;
-      case "messages":
-        return <Messages />;
-      case "permissions":
-        return <EventPermissions />;
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className="pt-[100px] min-h-screen  bg-gradient-to-r from-black to-blue-950 text-white flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 p-6 flex flex-col justify-between">
-        <div>
-          <h1 className="text-2xl font-bold mb-8">Dashboard</h1>
-          <ul className="space-y-4">
-            <li
-              className={`cursor-pointer hover:text-cyan-400 ${
-                activePage === "password" ? "text-cyan-500" : ""
-              }`}
-              onClick={() => setActivePage("password")}
-            >
-              Change Password
-            </li>
-            <li
-              className={`cursor-pointer hover:text-cyan-400 ${
-                activePage === "messages" ? "text-cyan-500" : ""
-              }`}
-              onClick={() => setActivePage("messages")}
-            >
-              Messages
-            </li>
-            <li
-              className={`cursor-pointer hover:text-cyan-400 ${
-                activePage === "permissions" ? "text-cyan-500" : ""
-              }`}
-              onClick={() => setActivePage("permissions")}
-            >
-              Event Permissions
-            </li>
-          </ul>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-8">{renderContent()}</main>
-    </div>
-  );
-};
 
 // Change Password Page
 const ChangePassword = () => (
@@ -102,5 +47,61 @@ const EventPermissions = () => (
     </p>
   </div>
 );
+const Dashboard = () => {
+  const [activePage, setActivePage] = useState("password");
 
+  const renderContent = () => {
+    switch (activePage) {
+      case "password":
+        return <ChangePassword />;
+      case "messages":
+        return <Messages />;
+      case "permissions":
+        return <EventPermissions />;
+      default:
+        return <ChangePassword/>;
+    }
+  };
+
+  return (
+    <div className="pt-[100px] min-h-screen  bg-gradient-to-r from-black to-blue-950 text-white flex">
+      {/* Sidebar */}
+      <aside className="w-64 bg-gray-800 p-6 flex flex-col justify-between">
+        <div>
+          <h1 className="text-2xl font-bold mb-8">Dashboard</h1>
+          <ul className="space-y-4">
+            <li
+              className={`cursor-pointer hover:text-cyan-400 ${
+                activePage === "password" ? "text-cyan-500" : ""
+              }`}
+              onClick={() => setActivePage("password")}
+            >
+              Change Password
+            </li>
+            <li
+              className={`cursor-pointer hover:text-cyan-400 ${
+                activePage === "messages" ? "text-cyan-500" : ""
+              }`}
+              onClick={() => setActivePage("messages")}
+            >
+              Messages
+            </li>
+            <li
+              className={`cursor-pointer hover:text-cyan-400 ${
+                activePage === "permissions" ? "text-cyan-500" : ""
+              }`}
+              onClick={() => setActivePage("permissions")}
+            >
+              Event Permissions
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 bg-red-400 p-8">{renderContent()}</main>
+      {/* <div className="">hello</div> */}
+    </div>
+  );
+};
 export default Dashboard;
