@@ -1,4 +1,6 @@
 import React from "react";
+import { io } from "socket.io-client";
+const socket = io("http://localhost:5000");
 import { useNavigate } from "react-router-dom";
 
 const UpcomingEvents = ({ imageUrl, eventName, year, eventstartingDate, startTime, location, description }) => {
@@ -6,7 +8,7 @@ const navigate = useNavigate();
 
 const handleViewDetails = () => {
   navigate("/event-details", {
-    state: { imageUrl, eventName, year, eventstartingDate, month, startTime, location, description },
+    state: { imageUrl, eventName, year, eventstartingDate, startTime, location, description },
   });
 };
 

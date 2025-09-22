@@ -96,7 +96,7 @@ const BookEvent = () => {
 
   return (
     <div className="bg-gradient-to-r from-black to-blue-950 min-h-screen">
-      <div className="max-w-6xl py-10 mx-auto px-4">
+      <div className= "pt-[100px] max-w-6xl py-10 mx-auto px-4">
         <header className="text-center mb-10">
           <h1 className="racing-font text-4xl md:text-5xl text-[#00f9ff] mb-3">
             RALLY EVENT REGISTRATION
