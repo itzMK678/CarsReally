@@ -36,7 +36,7 @@ const mailjet = Mailjet.apiConnect(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
+app.use(cors({origin:"*"}));
 
 // Connect DB
 connectToDb();
