@@ -20,7 +20,9 @@ const io = new Server(server, {
     methods: ["GET", "POST", "PUT"],
   },
 });
-
+const allowedOrigins = [
+  "http://localhost:5173/", 
+];
 const PORT = 5000;
 const stripe = new Stripe("sk_test_51S8nLHPB7TNnctoCWxgn9ZsCRiyVEDn9fm85ZqEZZYhdPkfcQEiBQLy5XnUaMdUnkcOIe7iGbCvzRhzCu33DXU6P003QGxphDS");
 
