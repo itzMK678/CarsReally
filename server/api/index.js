@@ -9,7 +9,7 @@ const { Server } = require("socket.io");
 
 // DB + Schema
 const connectToDb = require("../DB.js");
-const Event = require("../models/EventSchema.js");
+const Event = require("../models/EventsShema.js");
 
 // --- Setup ---
 const app = express();
