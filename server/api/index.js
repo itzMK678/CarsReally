@@ -1,4 +1,5 @@
 // server.js
+require('dotenv').config();
 const express = require("express");
 const Mailjet = require("node-mailjet");
 const cors = require("cors");
@@ -14,31 +15,34 @@ const Event = require("../models/EventsShema.js");
 // --- Setup ---
 const app = express();
 const server = http.createServer(app);
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",")
+  : ["http://localhost:5173"];
+
 const io = new Server(server, {
   cors: {
-    origin: "*", // allow frontend
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT"],
   },
 });
-const allowedOrigins = [
-  "http://localhost:5173/", 
-];
-const PORT = 5000;
-const stripe = new Stripe("sk_test_51S8nLHPB7TNnctoCWxgn9ZsCRiyVEDn9fm85ZqEZZYhdPkfcQEiBQLy5XnUaMdUnkcOIe7iGbCvzRhzCu33DXU6P003QGxphDS");
+
+const PORT = process.env.PORT || 5000;
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Mailjet
 const mailjet = Mailjet.apiConnect(
-  "5e46231f2d632b61913d79ad6a9002c7", // Public key
-  "58d9356bd99bebfb25d989b82e462a6e"  // Secret key
+  process.env.MJ_APIKEY_PUBLIC, // Public key
+  process.env.MJ_APIKEY_PRIVATE  // Secret key
 );
 
-// Middleware
+// --- Middleware ---
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors({origin:"*"}));
 
-// Connect DB
+// --- Connect to DB ---
 connectToDb();
 
 // --- SOCKET.IO ---
@@ -51,13 +55,17 @@ io.on("connection", (socket) => {
 });
 
 // --- ROUTES ---
+
+// Health Check
+app.get("/", (req, res) => {
+  res.json({
+    name: "Race Fusion",
+    health: "OK",
+    environment: process.env.NODE_ENV || "development",
+  });
+});
+
 // Create Event
-app.get('/',async(req,res)=>{
-  return {
-    "Name":"Race Fusion",
-    "Health":"OK"
-  }
-})
 app.post("/event", async (req, res) => {
   try {
     const {
@@ -74,6 +82,7 @@ app.post("/event", async (req, res) => {
       startTime,
     } = req.body;
 
+    // Validate required fields
     if (
       !organizerName ||
       !contactEmail ||
@@ -105,7 +114,7 @@ app.post("/event", async (req, res) => {
 
     await newEvent.save();
 
-    // Notify all clients via socket
+    // Notify all connected clients
     io.emit("eventUpdated", newEvent);
 
     res.status(201).json(newEvent);
@@ -193,13 +202,13 @@ app.post("/sendMail", async (req, res) => {
       Messages: [
         {
           From: {
-            Email: "m.mamoon.khaliq@gmail.com",
-            Name: "Company Support",
+            Email: process.env.MAIL_FROM_EMAIL || "noreply@yourdomain.com",
+            Name: process.env.MAIL_FROM_NAME || "Company Support",
           },
           To: [
             {
-              Email: "m.mamoon.khaliq@gmail.com",
-              Name: "Company Inbox",
+              Email: process.env.MAIL_TO_EMAIL || "m.mamoon.khaliq@gmail.com",
+              Name: process.env.MAIL_TO_NAME || "Company Inbox",
             },
           ],
           Subject: subject,
@@ -213,12 +222,12 @@ app.post("/sendMail", async (req, res) => {
 
     res.status(200).json({ success: true, result: result.body });
   } catch (err) {
-    console.error(err);
+    console.error("❌ Mailjet Error:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
 // --- START SERVER ---
 server.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
