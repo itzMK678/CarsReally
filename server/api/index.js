@@ -39,7 +39,7 @@ const mailjet = Mailjet.apiConnect(
 // --- Middleware ---
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: allowedOrigins }));
+app.use(cors({origin:"*" }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // --- Connect to DB ---
@@ -58,11 +58,7 @@ io.on("connection", (socket) => {
 
 // Health Check
 app.get("/", (req, res) => {
-  res.json({
-    name: "Race Fusion",
-    health: "OK",
-    environment: process.env.NODE_ENV || "development",
-  });
+  res.send("✅ Server is running"); 
 });
 
 // Create Event
