@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const connectToDb= async()=>{
     try{
-   await mongoose.connect("mongodb://127.0.0.1:27017/Racer", {
+   await mongoose.connect(process.env.DATABASE_URL, {
    
       useNewUrlParser: true,
       useUnifiedTopology: true,
