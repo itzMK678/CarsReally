@@ -77,7 +77,7 @@ const Footer = () => {
       © {new Date().getFullYear()} CarsReally. All rights reserved.
     </p>
   <p className="hidden group-hover:block opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300 ease-in-out group-hover:text-[#00F9FF]">
-      Developed by Mamoon Khaliq
+      Developed by M.Mamoon Khaliq
     </p>
   </a>
 </div>

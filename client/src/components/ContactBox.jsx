@@ -117,6 +117,9 @@ const ContactBox = () => {
                   placeholder="Your message"
                 />
                 <label
+
+
+
                   htmlFor="message"
                   className="absolute left-4 top-2 text-sm text-white/40 transition-all duration-200 peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-white/50 peer-focus:top-2 peer-focus:text-sm peer-focus:text-[#00F9FF]"
                 >
