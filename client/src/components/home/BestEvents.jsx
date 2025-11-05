@@ -45,7 +45,7 @@ const BestEvents = () => {
   return (
     <div className="flex flex-col bg-gradient-to-r from-black to-blue-950">
        
- <section className="min-h-screen  py-16 px-6">
+ <section className="min-h-fit  py-16 px-6">
        <div className="text-center">
         <h2 className="text-5xl font-bold text-white mb-4">{t("our_best_events")}</h2>
         <p className="text-lg text-gray-600  mx-auto mb-8">

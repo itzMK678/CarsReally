@@ -147,10 +147,10 @@ const Services = () => {
         </div>
       </div>
 
-      {/* ✅ Comparison Section */}
-      <div className="max-w-8xl mx-auto gap-16 my-3 px-6 py-12">
+      {/* ✅ Comparison  Section */}
+      <div className="w-fit  mx-auto gap-16 my-3 px-6 py-12">
         {/* Without Premium */}
-        <div className="my-6 bg-white/10 w-[800px] max-w-[800px] backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-white/20 relative">
+        <div className="my-6 bg-white/10  w-full max-w-[800px]  backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-white/20 relative">
           <h2 className="absolute -top-6 left-30 text-4xl font-bold text-white mb-6 text-center">
             Our Services 
           </h2>
@@ -159,7 +159,7 @@ const Services = () => {
               <div
                 key={index}
                 data-aos="fade-left"
-                className="bg-white/20 font-semibold rounded-[8px] px-4 py-3 text-white text-center hover:bg-white/30 transition"
+                className="bg-white/20  font-semibold rounded-[8px] px-4 py-3 text-white text-center hover:bg-white/30 transition"
               >
                 {point}
               </div>
@@ -168,7 +168,7 @@ const Services = () => {
         </div>
 
         {/* With Premium */}
-        <div className="my-6 mt-35 bg-cyan-700/20 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-cyan-400 relative">
+        <div className="my-6  w-full max-w-[800px] mt-35 bg-cyan-700/20 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-cyan-400 relative">
           <h2 className="absolute -top-6 left-30 text-4xl font-bold text-cyan-300 mb-6 text-center">
            Our Vip Service
           </h2>

@@ -50,7 +50,7 @@ const Homepage = () => {
       <BestEvents />
 
       <div
-        className="w-screen h-[200px] bg-cover bg-center flex items-center justify-center relative"
+        className="w-fit-screen h-[200px] bg-cover bg-center flex items-center justify-center relative"
         style={{ backgroundImage: `url(${ad})` }}
       ></div>
 
