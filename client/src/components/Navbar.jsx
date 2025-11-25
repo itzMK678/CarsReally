@@ -22,7 +22,41 @@ const Navbar = () => {
         </div>
 
         {/* Center - Menu Options */}
-        <div className="w-1/3 flex justify-center space-x-10">
+        <div className="text-[#00F9FF]  border-[0.1px] border-[#00F9FF] p-1.5 px-3  rounded-[8px] justify-center space-x-10 hover:bg-[#00F9FF] hover:text-black cursor-pointer">
+          Site Menu
+           <div className="flex flex-col items-center space-y-4">
+    <Link
+      to="/"
+      className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
+    >
+      {t("home")}
+    </Link>
+
+    <Link
+      to="/event"
+      className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
+    >
+      {t("events")}
+    </Link>
+
+    <Link
+      to="/services"
+      className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#00F9FF] transition"
+    >
+      {t("service")}
+    </Link>
+
+    <Link
+      to="/contact"
+      className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#FF007F] transition"
+    >
+      {t("contact")}
+    </Link>
+  </div>
+        </div>
+       
+        <div className="w-1/3  justify-center space-x-10 hidden">
+        
           <Link
             to="/"
             className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
