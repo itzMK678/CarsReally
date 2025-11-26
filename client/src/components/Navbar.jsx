@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Languages } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import SpOption from "./spOption";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation(); // ✅ Get t & i18n here
@@ -89,7 +90,7 @@ const Navbar = () => {
         </div>
 
         {/* Right - Button */}
-        <div className="w-1/3 flex justify-end">
+        <div className="w-1/3  justify-end hidden md:flex ">
           <div
             className="text-[#00F9FF] border-[0.1px] border-[#00F9FF] p-2 flex items-center mr-3 rounded-full cursor-pointer hover:bg-[#00F9FF] hover:text-black"
             onClick={toggleLanguage}
@@ -105,6 +106,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
+      <div className="absolute left-0.5 top-19 md:hidden"><SpOption /></div>
     </nav>
   );
 };
