@@ -3,10 +3,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Languages } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation(); // ✅ Get t & i18n here
-
+ const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleLanguage = () => {
     const nextLang = i18n.language === "en" ? "lt" : "en";
     i18n.changeLanguage(nextLang);
@@ -22,40 +23,41 @@ const Navbar = () => {
         </div>
 
         {/* Center - Menu Options */}
-        <div className="text-[#00F9FF]  border-[0.1px] border-[#00F9FF] p-1.5 px-3  rounded-[8px] justify-center space-x-10 hover:bg-[#00F9FF] hover:text-black cursor-pointer">
+        <div className=" relative bg-[#00F9FF] text-black  border-[0.1px] border-[#00F9FF] p-1.5 px-3  rounded-[8px] justify-center space-x-10 hover:bg-[#00F9FF] hover:text-black cursor-pointer md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           Site Menu
-           <div className="flex flex-col items-center space-y-4">
+         <div className={`${isMenuOpen ? 'block' : 'hidden'} bg-[#00F9FF] text-black rounded-[8px] absolute -left-4 flex flex-col border-[0.1px] border-[#00F9FF] items-center space-y-4 hover:bg-[#00F9FF] hover:text-black cursor-pointer`}>
+          
     <Link
       to="/"
-      className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
+      className="text-[15px] px-10 py-2 rounded-[8px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition hover:bg-black"
     >
       {t("home")}
     </Link>
 
     <Link
       to="/event"
-      className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition"
+        className="text-[15px] px-10 py-2 rounded-[8px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition hover:bg-black"
     >
       {t("events")}
     </Link>
 
     <Link
       to="/services"
-      className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#00F9FF] transition"
+        className="text-[15px] px-10 py-2 rounded-[8px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition hover:bg-black"
     >
       {t("service")}
     </Link>
 
     <Link
       to="/contact"
-      className="text-[15px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#FF007F] transition"
+        className="text-[15px] px-10 py-2 rounded-[8px] hover:text-[#00F9FF] hover:drop-shadow-[0_0_6px_#BC13FE] transition hover:bg-black"
     >
       {t("contact")}
     </Link>
   </div>
         </div>
        
-        <div className="w-1/3  justify-center space-x-10 hidden">
+        <div className=" hidden w-1/3  justify-center space-x-10 md:flex">
         
           <Link
             to="/"
