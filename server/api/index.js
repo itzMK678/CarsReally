@@ -1,5 +1,15 @@
 // server.js
-require('dotenv').config();
+
+require("dotenv").config({
+  path: require("path").resolve(__dirname, "../.env"),
+});
+
+console.log("Current directory:", process.cwd());
+console.log("Current file:", __dirname);
+console.log("ENV:", process.env);
+console.log("Stripe Key:", process.env.STRIPE_SECRET_KEY);
+
+
 const express = require("express");
 const Mailjet = require("node-mailjet");
 const cors = require("cors");
