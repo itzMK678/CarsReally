@@ -30,7 +30,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/login" />
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout><Homepage /></Layout>} />
       <Route path="/services" element={<Layout><Services /></Layout>} />
       <Route path="/booking" element={<Layout><BookEvent /></Layout>} />
