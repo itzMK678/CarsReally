@@ -212,12 +212,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import Quality from "../components/Quality";
 import Service from "../assets/Services.jpg";
 import Stats from "../components/home/Stats";
-import { Elements, PaymentElement } from "@stripe/react-stripe-js";
+// import { Elements, PaymentElement } from "@stripe/react-stripe-js";
 
 // Stripe Publishable Key
-const stripePromise = loadStripe(
-  "pk_test_51S8nLHPB7TNnctoCQNbYRPuTlIJlyCPGlenrKGAET6fKEQ3Sbo1LgCTvuoPmxbFItOEWGfwh6pnlsUbgJWxyEIEM00OcRGubey"
-);
+// const stripePromise = loadStripe(
+//   "pk_test_51S8nLHPB7TNnctoCQNbYRPuTlIJlyCPGlenrKGAET6fKEQ3Sbo1LgCTvuoPmxbFItOEWGfwh6pnlsUbgJWxyEIEM00OcRGubey"
+// );
 
 // Demo Checkout Form
 function CheckoutForm({ amount }) {

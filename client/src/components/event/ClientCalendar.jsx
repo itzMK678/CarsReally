@@ -8,12 +8,61 @@ import patner7 from "../../assets/patner8.jpg"; // fallback image
 const ClientCalendar = () => {
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/getEvent")
-      .then((res) => res.json())
-      .then((data) => {
-        // Map backend data to FullCalendar format
-       const mappedEvents = data.map((event) => {
+//   useEffect(() => {
+//     fetch("http://localhost:5000/getEvent")
+//       .then((res) => res.json())
+//       .then((data) => {
+//         // Map backend data to FullCalendar format
+//        const mappedEvents = data.map((event) => {
+//   // Safely parse start
+//   const start = new Date(event.eventstartingDate);
+//   const [hours, minutes] = event.startTime.split(":");
+//   start.setHours(parseInt(hours), parseInt(minutes));
+
+//   // Safely parse end
+//   const end = new Date(event.eventendingDate);
+//   end.setHours(parseInt(hours), parseInt(minutes));
+//   end.setDate(end.getDate() ); // include last day
+
+//   return {
+//     id: event._id,
+//     title: event.eventName,
+//     start,
+//     end,
+//     extendedProps: {
+      
+//       badge: event.eventType,
+//       image: patner7, // fallback image
+//     },
+//   };
+// });
+
+//         setEvents(mappedEvents);
+//       })
+//       .catch((err) => console.error("❌ Error fetching events:", err));
+//   }, []);
+
+useEffect(() => {
+  const data = [
+    {
+      _id: "1",
+      eventName: "Tech Conference",
+      eventstartingDate: "2026-10-15",
+      eventendingDate: "2026-10-15",
+      startTime: "10:00",
+      eventType: "Conference",
+    },
+    {
+      _id: "2",
+      eventName: "Music Festival",
+      eventstartingDate: "2026-11-20",
+      eventendingDate: "2026-11-20",
+      startTime: "18:00",
+      eventType: "Music",
+    },
+  ];
+
+ const mappedEvents = data.map((event) => {
   // Safely parse start
   const start = new Date(event.eventstartingDate);
   const [hours, minutes] = event.startTime.split(":");
@@ -37,10 +86,9 @@ const ClientCalendar = () => {
   };
 });
 
-        setEvents(mappedEvents);
-      })
-      .catch((err) => console.error("❌ Error fetching events:", err));
-  }, []);
+
+  setEvents(mappedEvents);
+}, []);
 
   const renderEventContent = (eventInfo) => {
     const startTime = eventInfo.event.start

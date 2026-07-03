@@ -27,38 +27,49 @@ const ContactBox = () => {
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrors({});
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setErrors({});
 
-    const newErrors = validate();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
+  //   const newErrors = validate();
+  //   if (Object.keys(newErrors).length > 0) {
+  //     setErrors(newErrors);
+  //     return;
+  //   }
 
-    setLoading(true);
+  //   setLoading(true);
 
-    try {
-      const response = await fetch("http://localhost:5000/sendMail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+  //   try {
+  //     const response = await fetch("http://localhost:5000/sendMail", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      if (response.ok) {
-        alert("Message sent successfully!");
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      } else {
-        alert("Failed to send message. Try again later.");
-      }
-    } catch (error) {
-      alert("Error: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (response.ok) {
+  //       alert("Message sent successfully!");
+  //       setFormData({ name: "", email: "", subject: "", message: "" });
+  //     } else {
+  //       alert("Failed to send message. Try again later.");
+  //     }
+  //   } catch (error) {
+  //     alert("Error: " + error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+const handleSubmit = (e)=>{
+e.preventDefault();
 
+alert("Message submitted successfully!");
+
+setFormData({
+name:"",
+email:"",
+subject:"",
+message:"",
+});
+};
   return (
     <section className="bg-transparent py-16 px-4">
       <div className="max-w-4xl mx-auto">

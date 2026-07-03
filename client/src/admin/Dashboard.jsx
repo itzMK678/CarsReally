@@ -74,35 +74,56 @@ const EventPermissions = ({ events, updatePermission }) => (
 
 const Dashboard = () => {
   const [activePage, setActivePage] = useState("password");
-  const [events, setEvents] = useState([]);
+  // const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([
+{
+_id:"1",
+eventName:"Tech Conference",
+imageUrl:"https://...",
+eventstartingDate:"2026-10-15",
+startTime:"10:00 AM",
+location:"Lahore",
+description:"Demo Event",
+Permission:false
+}
+]);
 
   // fetch events
-  useEffect(() => {
-    fetch("http://localhost:5000/getEvent")
-      .then((res) => res.json())
-      .then((data) => setEvents(data))
-      .catch((err) => console.error("❌ Error fetching events:", err));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/getEvent")
+  //     .then((res) => res.json())
+  //     .then((data) => setEvents(data))
+  //     .catch((err) => console.error("❌ Error fetching events:", err));
+  // }, []);
 
   // update permission
-  const updatePermission = async (eventId) => {
-    try {
-      const res = await fetch(`http://localhost:5000/events/${eventId}/permission`, {
-        method: "PUT",
-      });
-      const data = await res.json();
-      console.log("✅ Updated:", data);
+  // const updatePermission = async (eventId) => {
+  //   try {
+  //     const res = await fetch(`http://localhost:5000/events/${eventId}/permission`, {
+  //       method: "PUT",
+  //     });
+  //     const data = await res.json();
+  //     console.log("✅ Updated:", data);
 
-      // refresh local state
-      setEvents((prev) =>
-        prev.map((event) =>
-          event._id === eventId ? { ...event, Permission: true } : event
-        )
-      );
-    } catch (err) {
-      console.error("❌ Error updating permission:", err);
-    }
-  };
+  //     // refresh local state
+  //     setEvents((prev) =>
+  //       prev.map((event) =>
+  //         event._id === eventId ? { ...event, Permission: true } : event
+  //       )
+  //     );
+  //   } catch (err) {
+  //     console.error("❌ Error updating permission:", err);
+  //   }
+  // };
+  const updatePermission = (eventId) => {
+setEvents(prev =>
+prev.map(event =>
+event._id === eventId
+? {...event, Permission:true}
+: event
+)
+);
+};
 
   const renderContent = () => {
     switch (activePage) {
