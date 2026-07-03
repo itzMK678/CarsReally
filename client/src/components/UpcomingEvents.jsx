@@ -1,6 +1,6 @@
 import React from "react";
-import { io } from "socket.io-client";
-const socket = io("http://localhost:5000");
+// import { io } from "socket.io-client";
+// const socket = io("http://localhost:5000");
 import { useNavigate } from "react-router-dom";
 
 const UpcomingEvents = ({ imageUrl, eventName, year, eventstartingDate, startTime, location, description }) => {
