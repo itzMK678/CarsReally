@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Languages } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import SpOption from "./spOption";
+import SpOption from "./SpOption";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation(); // ✅ Get t & i18n here
