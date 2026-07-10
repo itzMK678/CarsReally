@@ -354,9 +354,10 @@ const Services = () => {
         </p>
       </div>
 
-      <Elements stripe={stripePromise} options={options}>
+      {/* <Elements stripe={stripePromise} options={options}>
         <CheckoutForm amount={1000} />
-      </Elements>
+      </Elements> */}
+      
     </div>
   );
 };
