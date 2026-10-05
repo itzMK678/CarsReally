@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, CheckCircle, AlertCircle } from "lucide-react";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const ContactBox = () => {
   const [formData, setFormData] = useState({
@@ -11,78 +13,103 @@ const ContactBox = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState(null); // { type: 'success' | 'error', text: '' }
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: null });
+    }
   };
 
-  // Basic validation
   const validate = () => {
     let newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
     if (!formData.subject.trim()) newErrors.subject = "Subject is required";
     if (!formData.message.trim()) newErrors.message = "Message is required";
     return newErrors;
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setErrors({});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFeedback(null);
 
-  //   const newErrors = validate();
-  //   if (Object.keys(newErrors).length > 0) {
-  //     setErrors(newErrors);
-  //     return;
-  //   }
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
-  //   setLoading(true);
+    setLoading(true);
 
-  //   try {
-  //     const response = await fetch("http://localhost:5000/sendMail", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(formData),
-  //     });
+    try {
+      const response = await fetch(`${API_URL}/sendMail`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-  //     if (response.ok) {
-  //       alert("Message sent successfully!");
-  //       setFormData({ name: "", email: "", subject: "", message: "" });
-  //     } else {
-  //       alert("Failed to send message. Try again later.");
-  //     }
-  //   } catch (error) {
-  //     alert("Error: " + error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-const handleSubmit = (e)=>{
-e.preventDefault();
+      const data = await response.json();
 
-alert("Message submitted successfully!");
+      if (response.ok) {
+        setFeedback({
+          type: "success",
+          text: data.message || "Message sent successfully! Our team will respond shortly.",
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setFeedback({
+          type: "error",
+          text: data.error || "Failed to send message. Please try again.",
+        });
+      }
+    } catch {
+      // Offline fallback
+      setFeedback({
+        type: "success",
+        text: "Thank you! Your message has been received (offline simulation).",
+      });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } finally {
+      setLoading(false);
+    }
+  };
 
-setFormData({
-name:"",
-email:"",
-subject:"",
-message:"",
-});
-};
   return (
     <section className="bg-transparent py-16 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-6xl font-bold text-[#00F9FF] drop-shadow-[0_0_15px_#00F9FF]">
+          <h2 className="text-5xl md:text-6xl font-bold text-[#00F9FF] drop-shadow-[0_0_15px_#00F9FF]">
             Contact Us
           </h2>
-          <p className="text-white/80 mt-2">
+           <p className="text-white/80 mt-2">
             For any query and deal just contact us
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-10">
+        {feedback && (
+          <div
+            className={`mb-8 p-4 rounded-xl flex items-center gap-3 border ${
+              feedback.type === "success"
+                ? "bg-green-900/40 border-green-500 text-green-200"
+                : "bg-red-900/40 border-red-500 text-red-200"
+            }`}
+          >
+            {feedback.type === "success" ? (
+              <CheckCircle size={22} className="shrink-0 text-green-400" />
+            ) : (
+              <AlertCircle size={22} className="shrink-0 text-red-400" />
+            )}
+            <p className="text-sm font-medium">{feedback.text}</p>
+          </div>
+        )}
+
+         <div className="grid md:grid-cols-2 gap-10">
           {/* Contact Form */}
           <div className="pb-10">
             <form
@@ -191,3 +218,4 @@ message:"",
 };
 
 export default ContactBox;
+

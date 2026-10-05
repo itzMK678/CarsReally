@@ -1,13 +1,22 @@
 const mongoose = require("mongoose");
-const connectToDb= async()=>{
-    try{
-   await mongoose.connect(process.env.DATABASE_URL, {
-   
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("MongoDB is Connected");
-  }catch (err) {
-    console.error("❌ DB Connection Failed:", err.message);
-}}
+
+const connectToDb = async () => {
+  const dbUrl = process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/Racer";
+
+  try {
+    await mongoose.connect(dbUrl);
+    console.log("✅ MongoDB connected successfully to", dbUrl);
+  } catch (err) {
+    console.error("❌ MongoDB connection failed:", err.message);
+  }
+};
+
+mongoose.connection.on("disconnected", () => {
+  console.warn("⚠️ MongoDB disconnected. Attempting reconnection...");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.error("❌ MongoDB runtime error:", err.message);
+});
+
 module.exports = connectToDb;

@@ -1,78 +1,96 @@
 const mongoose = require("mongoose");
 
-const EventSchema = new mongoose.Schema({
+const EventSchema = new mongoose.Schema(
+  {
+    organizerName: {
+      type: String,
+      required: [true, "Organizer name is required"],
+      trim: true,
+    },
+    Permission: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
+    imageUrl: {
+      type: String,
+      required: [true, "Image URL is required"],
+      trim: true,
+    },
+    contactPhone: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    contactEmail: {
+      type: String,
+      required: [true, "Contact email is required"],
+      lowercase: true,
+      trim: true,
+      match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
+    },
 
-  organizerName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-Permission: {
-  type: Boolean,
-  default: false ,
-},
-  imageUrl:{
-    type:String,
-    require:true,
-    trim:true,
-  },
-  contactPhone: {
-    type: String,
-    trim: true,
-  },
-  contactEmail: {
-    type: String,
-    required: true,
-    lowercase: true,
-    trim: true,
-  },
+    // Basic Information
+    eventName: {
+      type: String,
+      required: [true, "Event name is required"],
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+      trim: true,
+    },
+    eventType: {
+      type: String,
+      required: [true, "Event type is required"],
+      enum: [
+        "Stage Rally",
+        "Rallycross",
+        "Road Rally",
+        "Time-Speed-Distance Rally",
+        "Hill Climb",
+        "Track Day",
+        "Exhibition",
+      ],
+      default: "Stage Rally",
+    },
 
-  // Basic Information
-  eventName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  eventType: {
-    type: String,
-    required: true,
-    enum: [
-      "Stage Rally",
-      "Rallycross",
-      "Road Rally",
-      "Time-Speed-Distance Rally",
-      "Hill Climb",
-    ],
-  },
-
-  // Date, Time & Location
-  eventstartingDate: {
-    type: Date,
-    required: true,
-  },
+    // Date, Time & Location
+    eventstartingDate: {
+      type: Date,
+      required: [true, "Starting date is required"],
+    },
     eventendingDate: {
-    type: Date,
-    required: true,
+      type: Date,
+      required: [true, "Ending date is required"],
+    },
+    location: {
+      type: String,
+      required: [true, "Location is required"],
+      trim: true,
+    },
+    startTime: {
+      type: String,
+      required: [true, "Start time is required"],
+      trim: true,
+    },
   },
-  location: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  startTime: {
-    type: String,
-    required: true,
-  },
+  {
+    timestamps: true,
+  }
+);
 
-  // Meta
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+// Virtuals for alias compatibility
+EventSchema.virtual("title").get(function () {
+  return this.eventName;
 });
+
+EventSchema.virtual("image").get(function () {
+  return this.imageUrl;
+});
+
+EventSchema.set("toJSON", { virtuals: true });
+EventSchema.set("toObject", { virtuals: true });
 
 module.exports = mongoose.model("Event", EventSchema);
