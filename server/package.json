@@ -8,10 +8,12 @@
     "dev": "nodemon api/index.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.18.1",
     "morgan": "^1.10.1",
     "node-mailjet": "^6.0.9",
