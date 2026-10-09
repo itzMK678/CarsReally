@@ -55,7 +55,7 @@ const Services = () => {
                 data-aos="fade-left"
                 className="bg-white/10 font-semibold rounded-lg px-4 py-3 text-white flex items-center gap-3 hover:bg-white/20 transition"
               >
-                <Check size={18} className="text-[#00F9FF] shrink-0" />
+                
                 <span>{point}</span>
               </div>
             ))}
@@ -64,8 +64,8 @@ const Services = () => {
 
         {/* VIP Services */}
         <div className="my-6 w-full max-w-[800px] mt-16 bg-cyan-900/30 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-[#00F9FF]/40 relative">
-          <h2 className="absolute -top-6 left-10 md:left-30 text-3xl md:text-4xl font-bold text-[#00F9FF] mb-6 text-center flex items-center gap-2">
-            <Sparkles size={28} /> VIP Organizer Package
+          <h2 className="absolute -top-6 left-10 md:left-30 text-3xl md:text-4xl font-bold text-white mb-6 text-center">
+            VIP Services
           </h2>
 
           <div className="space-y-4 mt-4">
@@ -75,7 +75,7 @@ const Services = () => {
                 data-aos="fade-right"
                 className="bg-cyan-600/20 font-semibold rounded-lg px-4 py-3 text-cyan-100 flex items-center gap-3 border border-cyan-500/20 hover:bg-cyan-600/30 transition"
               >
-                <Check size={18} className="text-[#00F9FF] shrink-0" />
+               
                 <span>{point}</span>
               </div>
             ))}

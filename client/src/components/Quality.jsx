@@ -22,7 +22,7 @@ const Quality = () => {
             <h3 className="text-2xl font-bold mb-4 text-transparent group-hover:text-gray-100 transition">
              Professional Events
             </h3>
-            <p className="text-lg txext-transparent group-hover:text-gray-200 transition">
+            <p className="text-lg text-transparent group-hover:text-gray-200 transition">
               Expertly organized rally events with professional timing, safety measures,
       and support crews.
        </p>
