@@ -77,7 +77,7 @@ const Navbar = () => {
           {/* Book Event CTA */}
           <Link
             to="/booking"
-            className="bg-[#00F9FF] hover:bg-cyan-400 text-black font-bold text-sm px-5 py-2 rounded-xl transition duration-200 shadow-[0_0_12px_rgba(0,249,255,0.4)]"
+            className="bg-[#00F9FF] hover:bg-cyan-400 text-black font-bold text-sm px-5 py-2 rounded-[8px] transition duration-200 shadow-[0_0_12px_rgba(0,249,255,0.4)]"
           >
             {t("book_event")}
           </Link>

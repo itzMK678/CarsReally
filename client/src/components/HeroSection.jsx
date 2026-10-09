@@ -37,14 +37,14 @@ const HeroSection = () => {
         <div className="mt-8 flex flex-wrap gap-4 justify-center">
           <Link
             to="/event"
-            className="flex items-center gap-2 px-8 py-3.5 bg-[#00F9FF] hover:bg-cyan-400 text-black font-bold rounded-xl transition duration-200 shadow-[0_0_15px_rgba(0,249,255,0.5)] cursor-pointer"
+            className="flex items-center gap-2 px-8 py-3.5 bg-[#00F9FF] hover:bg-cyan-400 text-black font-bold rounded-[8px] transition duration-200 shadow-[0_0_15px_rgba(0,249,255,0.5)] cursor-pointer"
           >
-            {t("learn_what_new")} <ChevronRight size={18} />
+            {t("learn_what_new")} 
           </Link>
 
           <Link
             to="/booking"
-            className="px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition duration-200 backdrop-blur-md cursor-pointer"
+            className="px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-[8px] border border-white/20 transition duration-200 backdrop-blur-md cursor-pointer"
           >
             {t("book_event")}
           </Link>
