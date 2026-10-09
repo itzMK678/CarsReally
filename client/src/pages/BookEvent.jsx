@@ -11,9 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const IMGBB_KEY =
-  import.meta.env.VITE_IMGBB_API_KEY ||
-  "c40771f14511210bb07499244c2efe27";
+const IMGBB_KEY = import.meta.env.VITE_IMGBB_API_KEY || "";
 
 const BookEvent = () => {
   const navigate = useNavigate();
@@ -192,11 +190,11 @@ const BookEvent = () => {
         });
       }
     } catch (err) {
-      console.error("Error:", err);
+      console.error("Event registration error:", err);
 
       setStatusMessage({
-        type: "success",
-        text: "Event registration saved (offline preview mode).",
+        type: "error",
+        text: "Unable to connect to the server. Please verify the backend is running and try again.",
       });
     } finally {
       setSubmitting(false);

@@ -188,7 +188,7 @@ const ContactBox = () => {
               <div>
                 <p className="text-sm font-medium text-[#00F9FF]">Email</p>
                 <a href="mailto:flana@gmail.com">
-                  <p className="text-base">flana@gmail.com</p>
+                  <p className="text-base">m.mamoon.khaliq@gmail.com</p>
                 </a>
               </div>
             </div>
@@ -198,7 +198,7 @@ const ContactBox = () => {
               <div>
                 <p className="text-sm font-medium text-[#00F9FF]">Phone</p>
                 <a href="tel:+923088145270">
-                  <p className="text-base">1234566</p>
+                  <p className="text-base">03326325661</p>
                 </a>
               </div>
             </div>

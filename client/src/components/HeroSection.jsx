@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import racingVideo from "../assets/Racing.mp4";
-import eventPoster from "../assets/Advertisement.jpg";
 import { ChevronRight } from "lucide-react";
 
 const HeroSection = () => {

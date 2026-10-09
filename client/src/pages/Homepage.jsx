@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
+// import io from "socket.io-client"; // Uncomment when Socket.IO backend is active
 
 import HeroSection from "../components/HeroSection";
 import PartnersSection from "../components/PatnersSection";
@@ -50,7 +50,8 @@ const Homepage = () => {
         console.warn("Backend not available, using offline rally events:", err.message);
       });
 
-    // Real-time socket listener
+    // Real-time socket listener (Uncomment when Socket.IO backend is enabled)
+    /*
     let socket;
     try {
       socket = io(API_URL, { reconnectionAttempts: 2, timeout: 3000 });
@@ -73,6 +74,7 @@ const Homepage = () => {
     return () => {
       if (socket) socket.disconnect();
     };
+    */
   }, []);
 
   return (

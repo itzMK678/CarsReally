@@ -1,9 +1,17 @@
 // src/admin/Dashboard.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { KeyRound, Mail, CheckCircle, Trash2, LogOut, CalendarCheck, Shield } from "lucide-react";
+import { KeyRound, Mail, CheckCircle, Trash2, LogOut, CalendarCheck, Shield, AlertCircle, RefreshCw } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+  return {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+};
 
 const FALLBACK_DASHBOARD_EVENTS = [
   {
@@ -33,14 +41,17 @@ const FALLBACK_DASHBOARD_EVENTS = [
 ];
 
 // Change Password Component
-const ChangePassword = () => {
+const ChangePassword = ({ onUnauthorized }) => {
   const [current, setCurrent] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirm, setConfirm] = useState("");
   const [message, setMessage] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage(null);
+
     if (newPass.length < 6) {
       setMessage({ type: "error", text: "New password must be at least 6 characters." });
       return;
@@ -49,10 +60,40 @@ const ChangePassword = () => {
       setMessage({ type: "error", text: "Passwords do not match." });
       return;
     }
-    setMessage({ type: "success", text: "Password updated successfully!" });
-    setCurrent("");
-    setNewPass("");
-    setConfirm("");
+
+    setSubmitting(true);
+
+    try {
+      const res = await fetch(`${API_URL}/api/auth/change-password`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({
+          currentPassword: current,
+          newPassword: newPass,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 401) {
+        onUnauthorized();
+        return;
+      }
+
+      if (res.ok && data.success) {
+        setMessage({ type: "success", text: data.message || "Password updated successfully!" });
+        setCurrent("");
+        setNewPass("");
+        setConfirm("");
+      } else {
+        setMessage({ type: "error", text: data.error || "Failed to update password." });
+      }
+    } catch (err) {
+      console.error("Change password error:", err);
+      setMessage({ type: "error", text: "Unable to reach server. Please try again later." });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -63,69 +104,160 @@ const ChangePassword = () => {
 
       {message && (
         <div
-          className={`p-3 rounded-lg mb-4 text-sm ${
+          className={`p-3 rounded-lg mb-4 text-sm flex items-center gap-2 ${
             message.type === "success"
               ? "bg-green-900/40 text-green-200 border border-green-500"
               : "bg-red-900/40 text-red-200 border border-red-500"
           }`}
         >
-          {message.text}
+          {message.type === "success" ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
+          <span>{message.text}</span>
         </div>
       )}
 
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="Current Password"
-          value={current}
-          onChange={(e) => setCurrent(e.target.value)}
-          required
-          className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#00F9FF]"
-        />
-        <input
-          type="password"
-          placeholder="New Password (min 6 characters)"
-          value={newPass}
-          onChange={(e) => setNewPass(e.target.value)}
-          required
-          className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#00F9FF]"
-        />
-        <input
-          type="password"
-          placeholder="Confirm New Password"
-          value={confirm}
-          onChange={(e) => setConfirm(e.target.value)}
-          required
-          className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#00F9FF]"
-        />
+        <div>
+          <label className="block text-gray-400 text-xs font-semibold mb-1">Current Password</label>
+          <input
+            type="password"
+            placeholder="••••••••"
+            value={current}
+            onChange={(e) => setCurrent(e.target.value)}
+            required
+            className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#00F9FF]"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-400 text-xs font-semibold mb-1">New Password (min 6 chars)</label>
+          <input
+            type="password"
+            placeholder="••••••••"
+            value={newPass}
+            onChange={(e) => setNewPass(e.target.value)}
+            required
+            className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#00F9FF]"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-400 text-xs font-semibold mb-1">Confirm New Password</label>
+          <input
+            type="password"
+            placeholder="••••••••"
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            required
+            className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#00F9FF]"
+          />
+        </div>
         <button
           type="submit"
-          className="w-full py-3 rounded-lg bg-[#00F9FF] hover:bg-cyan-400 text-black font-bold transition shadow-[0_0_12px_rgba(0,249,255,0.3)] cursor-pointer"
+          disabled={submitting}
+          className="w-full py-3 rounded-lg bg-[#00F9FF] hover:bg-cyan-400 text-black font-bold transition shadow-[0_0_12px_rgba(0,249,255,0.3)] cursor-pointer disabled:opacity-50"
         >
-          Update Password
+          {submitting ? "Updating..." : "Update Password"}
         </button>
       </form>
     </div>
   );
 };
 
-// Messages Page
-const Messages = () => (
-  <div className="max-w-3xl mx-auto bg-black/40 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-2xl">
-    <h2 className="text-2xl font-bold mb-4 text-[#00F9FF] flex items-center gap-2">
-      <Mail size={22} /> Inbox & Queries
-    </h2>
-    <p className="text-gray-300">
-      Contact queries submitted through the public Contact page arrive directly here and in the configured Mailjet mailbox.
-    </p>
-    <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10 text-gray-400 text-sm">
-      All systems operational. No unread critical alerts.
+// Messages Page (Connected to MongoDB messages)
+const Messages = ({ onUnauthorized }) => {
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchMessages = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API_URL}/api/mail/messages`, {
+        headers: getAuthHeaders(),
+      });
+
+      if (res.status === 401) {
+        onUnauthorized();
+        return;
+      }
+
+      const data = await res.json();
+      if (res.ok && data.success && Array.isArray(data.messages)) {
+        setMessages(data.messages);
+      } else {
+        setMessages([]);
+      }
+    } catch (err) {
+      console.warn("Could not fetch messages:", err.message);
+      setError("Unable to load messages from server.");
+    } finally {
+      setLoading(false);
+    }
+  }, [onUnauthorized]);
+
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]);
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-6">
+      <div className="flex items-center justify-between pb-2 border-b border-white/10">
+        <div>
+          <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+            <Mail className="text-[#00F9FF]" size={22} /> Inbox & Contact Queries
+          </h2>
+          <p className="text-gray-400 text-sm mt-1">
+            Real inquiries submitted through the contact form, securely saved in MongoDB.
+          </p>
+        </div>
+        <button
+          onClick={fetchMessages}
+          className="flex items-center gap-1.5 text-xs text-[#00F9FF] hover:text-cyan-300 p-2 rounded-lg border border-[#00F9FF]/30 hover:bg-[#00F9FF]/10 transition"
+        >
+          <RefreshCw size={14} /> Refresh
+        </button>
+      </div>
+
+      {loading ? (
+        <div className="text-center py-12 text-gray-400">Loading inquiries...</div>
+      ) : error ? (
+        <div className="p-4 rounded-xl bg-red-900/30 border border-red-500 text-red-200 text-sm">
+          {error}
+        </div>
+      ) : messages.length === 0 ? (
+        <div className="text-center py-12 text-gray-400 bg-black/30 rounded-2xl border border-white/10">
+          No contact inquiries recorded yet.
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {messages.map((msg) => (
+            <div
+              key={msg._id}
+              className="bg-black/50 backdrop-blur-md rounded-2xl border border-white/10 p-5 hover:border-white/20 transition space-y-2"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2">
+                <div>
+                  <h3 className="font-bold text-white text-lg">{msg.subject}</h3>
+                  <p className="text-xs text-[#00F9FF]">
+                    From: <span className="font-semibold">{msg.name}</span> ({msg.email})
+                  </p>
+                </div>
+                <span className="text-xs text-gray-400">
+                  {new Date(msg.createdAt).toLocaleDateString()} at {new Date(msg.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                </span>
+              </div>
+              <p className="text-gray-300 text-sm whitespace-pre-wrap leading-relaxed pt-1">
+                {msg.message}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 // Event Permissions Page
-const EventPermissions = ({ events, togglePermission, deleteEvent }) => (
+const EventPermissions = ({ events, togglePermission, deleteEvent, actionMessage }) => (
   <div className="max-w-4xl mx-auto space-y-6">
     <div className="flex items-center justify-between pb-2 border-b border-white/10">
       <div>
@@ -140,6 +272,19 @@ const EventPermissions = ({ events, togglePermission, deleteEvent }) => (
         {events.length} Total Events
       </span>
     </div>
+
+    {actionMessage && (
+      <div
+        className={`p-3 rounded-lg text-sm flex items-center gap-2 ${
+          actionMessage.type === "success"
+            ? "bg-green-900/40 text-green-200 border border-green-500"
+            : "bg-red-900/40 text-red-200 border border-red-500"
+        }`}
+      >
+        {actionMessage.type === "success" ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
+        <span>{actionMessage.text}</span>
+      </div>
+    )}
 
     {events.length === 0 ? (
       <div className="text-center py-12 text-gray-400 bg-black/30 rounded-2xl border border-white/10">
@@ -219,11 +364,25 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [activePage, setActivePage] = useState("permissions");
   const [events, setEvents] = useState(FALLBACK_DASHBOARD_EVENTS);
+  const [actionMessage, setActionMessage] = useState(null);
 
-  // Fetch events
+  const handleUnauthorized = useCallback(() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userEmail");
+    navigate("/login");
+  }, [navigate]);
+
+  // Fetch events with auth headers
   useEffect(() => {
-    fetch(`${API_URL}/getEvent`)
+    fetch(`${API_URL}/getEvent`, {
+      headers: getAuthHeaders(),
+    })
       .then((res) => {
+        if (res.status === 401) {
+          handleUnauthorized();
+          return null;
+        }
         if (!res.ok) throw new Error("Could not fetch events");
         return res.json();
       })
@@ -235,60 +394,92 @@ const Dashboard = () => {
       .catch((err) => {
         console.warn("Backend not available, using dashboard fallback data:", err.message);
       });
-  }, []);
+  }, [handleUnauthorized]);
 
-  // Update permission
+  // Update permission with real JWT token
   const togglePermission = async (eventId, newPermissionState) => {
+    setActionMessage(null);
     try {
       const res = await fetch(`${API_URL}/events/${eventId}/permission`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: getAuthHeaders(),
         body: JSON.stringify({ Permission: newPermissionState }),
       });
-      if (res.ok) {
-        setEvents((prev) =>
-          prev.map((ev) =>
-            ev._id === eventId ? { ...ev, Permission: newPermissionState } : ev
-          )
-        );
-      } else {
-        // Fallback update local state for preview
-        setEvents((prev) =>
-          prev.map((ev) =>
-            ev._id === eventId ? { ...ev, Permission: newPermissionState } : ev
-          )
-        );
+
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
       }
-    } catch {
-      // Local state fallback
-      setEvents((prev) =>
-        prev.map((ev) =>
-          ev._id === eventId ? { ...ev, Permission: newPermissionState } : ev
-        )
-      );
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setEvents((prev) =>
+          prev.map((ev) =>
+            ev._id === eventId ? { ...ev, Permission: newPermissionState } : ev
+          )
+        );
+        setActionMessage({
+          type: "success",
+          text: `Event ${newPermissionState ? "approved" : "revoked"} successfully.`,
+        });
+      } else {
+        setActionMessage({
+          type: "error",
+          text: data.error || "Failed to update event permission.",
+        });
+      }
+    } catch (err) {
+      console.error("Toggle permission error:", err);
+      setActionMessage({
+        type: "error",
+        text: "Network error. Permission was not updated on the server.",
+      });
     }
   };
 
-  // Delete event
+  // Delete event with real JWT token
   const deleteEvent = async (eventId) => {
-    if (!window.confirm("Are you sure you want to remove this event?")) return;
+    if (!window.confirm("Are you sure you want to permanently delete this event?")) return;
+    setActionMessage(null);
 
     try {
       const res = await fetch(`${API_URL}/events/${eventId}`, {
         method: "DELETE",
+        headers: getAuthHeaders(),
       });
-      if (res.ok) {
-        setEvents((prev) => prev.filter((ev) => ev._id !== eventId));
-      } else {
-        setEvents((prev) => prev.filter((ev) => ev._id !== eventId));
+
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
       }
-    } catch {
-      setEvents((prev) => prev.filter((ev) => ev._id !== eventId));
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setEvents((prev) => prev.filter((ev) => ev._id !== eventId));
+        setActionMessage({
+          type: "success",
+          text: "Event deleted successfully.",
+        });
+      } else {
+        setActionMessage({
+          type: "error",
+          text: data.error || "Failed to delete event.",
+        });
+      }
+    } catch (err) {
+      console.error("Delete event error:", err);
+      setActionMessage({
+        type: "error",
+        text: "Network error. Event was not deleted on the server.",
+      });
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     localStorage.removeItem("userEmail");
     navigate("/login");
   };
@@ -301,32 +492,39 @@ const Dashboard = () => {
             events={events}
             togglePermission={togglePermission}
             deleteEvent={deleteEvent}
+            actionMessage={actionMessage}
           />
         );
       case "password":
-        return <ChangePassword />;
+        return <ChangePassword onUnauthorized={handleUnauthorized} />;
       case "messages":
-        return <Messages />;
+        return <Messages onUnauthorized={handleUnauthorized} />;
       default:
         return (
           <EventPermissions
             events={events}
             togglePermission={togglePermission}
             deleteEvent={deleteEvent}
+            actionMessage={actionMessage}
           />
         );
     }
   };
+
+  const userEmail = localStorage.getItem("userEmail") || "admin@carsreally.com";
 
   return (
     <div className="pt-20 min-h-screen bg-gradient-to-r from-black to-blue-950 text-white flex flex-col md:flex-row">
       {/* Sidebar */}
       <aside className="w-full md:w-64 bg-black/60 backdrop-blur-xl border-r border-white/10 p-6 flex flex-col justify-between">
         <div>
-          <div className="flex items-center gap-2 mb-8">
+          <div className="flex items-center gap-2 mb-2">
             <h1 className="text-2xl font-extrabold text-[#00F9FF]">CarsReally</h1>
             <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded font-mono text-gray-300">ADMIN</span>
           </div>
+          <p className="text-xs text-gray-400 mb-6 truncate" title={userEmail}>
+            Logged in as: <span className="text-white">{userEmail}</span>
+          </p>
 
           <nav className="space-y-2">
             <button

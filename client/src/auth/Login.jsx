@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Lock, Mail, ArrowLeft } from "lucide-react";
+import { Lock, Mail, ArrowLeft, AlertCircle } from "lucide-react";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function Login() {
   const navigate = useNavigate();
@@ -9,7 +11,7 @@ function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -20,22 +22,38 @@ function Login() {
 
     setLoading(true);
 
-    // Client-side authentication logic
-    setTimeout(() => {
-      // Allow admin credentials or valid email format for demo
-      if (
-        (email.toLowerCase() === "admin@carsreally.com" && password === "admin123") ||
-        (email.includes("@") && password.length >= 6)
-      ) {
-        const token = "carsreally-admin-auth-" + Date.now();
-        localStorage.setItem("token", token);
-        localStorage.setItem("userEmail", email);
+    try {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success && data.token) {
+        // Store real JWT token and admin profile
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userEmail", data.admin?.email || email);
+        if (data.admin) {
+          localStorage.setItem("user", JSON.stringify(data.admin));
+        }
+
         navigate("/dashboard");
       } else {
-        setError("Invalid credentials. Try admin@carsreally.com / admin123");
-        setLoading(false);
+        setError(data.error || data.message || "Invalid email or password");
       }
-    }, 400);
+    } catch (err) {
+      console.error("Login network error:", err);
+      setError("Unable to connect to backend server. Please verify your connection.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,13 +71,14 @@ function Login() {
             Admin <span className="text-[#00F9FF]">Portal</span>
           </h2>
           <p className="text-gray-400 text-sm mt-1">
-            Sign in to manage rally registrations & approvals
+            Sign in with your admin credentials
           </p>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 rounded-lg bg-red-900/40 border border-red-500 text-red-200 text-sm text-center">
-            {error}
+          <div className="mb-4 p-3 rounded-lg bg-red-900/40 border border-red-500 text-red-200 text-sm flex items-center gap-2">
+            <AlertCircle size={18} className="shrink-0 text-red-400" />
+            <span>{error}</span>
           </div>
         )}
 
@@ -93,7 +112,7 @@ function Login() {
               />
             </div>
             <p className="text-[11px] text-gray-400 mt-1">
-              Demo admin credentials: <code className="text-[#00F9FF]">admin@carsreally.com</code> / <code className="text-[#00F9FF]">admin123</code>
+              Initial admin credentials: <code className="text-[#00F9FF]">admin@carsreally.com</code> / <code className="text-[#00F9FF]">admin123</code>
             </p>
           </div>
 
